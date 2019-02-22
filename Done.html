@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="done.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+    <script>
+        var url_string = document.URL;
+        var url = new URL(url_string);
+        var imgLink = url.searchParams.get("winnerID");
+        var subject = url.searchParams.get("subject");
+        const jsonLocation = 'data/' + subject + '.json';
+        var httpRequest = new XMLHttpRequest();
+
+        $.getJSON(jsonLocation, function (data) {
+            httpRequest.open("GET", "/changeJson?"+ "subject=" +subject + "&" + "winnerID=" + imgLink, true);
+            httpRequest.send();
+            $('#winnerImg').append(`<img id ="win" src="${imgLink}"/>`);
+            data.sort(function (a, b) {
+                return a.cnt > b.cnt ? -1 : 0;
+            });
+            $('#one').append(`<img id="no1" src="${data[0].src}"/>`);
+            $('#two').append(`<img id="no2" src="${data[1].src}"/>`);
+            $('#three').append(`<img id="no3" src="${data[2].src}"/>`);
+        });
+    </script>
+</head>
+
+<body>
+    <div class="title">
+        우승자!!!
+    </div>
+    <div class="content">
+        <div id="winnerImg">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>순위</th>
+                    <th>강아지</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1위</td>
+                    <td class="mvp" id="one"></td>
+                </tr>
+                <tr>
+                    <td> 2위</td>
+                    <td class="mvp" id="two"></td>
+                </tr>
+                <tr>
+                    <td>3위</td>
+                    <td class="mvp" id="three"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

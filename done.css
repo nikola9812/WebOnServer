@@ -1,0 +1,17 @@
+.title{
+    font-size: 50pt;
+}
+#winnerImg{
+    width : 500px;
+    height: 600px;
+}
+table{
+    width : 600px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+}
+th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="worldcup.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Document</title>
+    <script>
+        var url_string = document.URL;
+        var url = new URL(url_string);
+        var subject = url.searchParams.get("subject");
+
+        const jsonLocation = 'data/' + subject + '.json';
+
+        let images = [];
+        let nextRound = [];
+        let index = 0;
+
+        $.getJSON(jsonLocation, function (data) {
+            images = data;
+
+            const left = $("#left");
+            const right = $("#right");
+            const gang = $("#gangNum");
+            const count = $("#count");
+            const vs = $('#VS');
+
+            var round = 8;
+            var cnt = 1;
+
+            gang.append($(`<div> ${round}  강 </div>`));
+            count.append($(`<div> ${cnt} /  ${round / 2} </div>`));
+
+
+            leftElement = $(`<img id="leftImage" src="${images[index].src}"/>`).click(function () {
+                nextRound.push(images[index]);
+                if ((round / 2) == 1) {
+                    gang.remove();
+                    count.remove();
+                    leftElement.remove();
+                    rightElement.remove();
+                    vs.remove();
+                    var link = "Done.html" + "?" + "subject=" + subject + "&" + "winnerID=" + nextRound[0].src;
+                    $('#winnerImg').append(`<a href = "${link}"> <img id="winner" src="${nextRound[0].src}"/>`);
+                }
+                else {
+                    cnt++;
+                    if (cnt <= (round / 2)) {
+                        index += 2;
+                        $("#count").text(cnt + " / " + (round / 2));
+                        $("#gangNum").text(round + " 강");
+
+                        this.src = images[index].src;
+                        document.querySelector("#rightImage").src = images[index + 1].src;
+                    }
+                    else {
+                        round = round / 2;
+                        cnt = 1;
+                        index = 0;
+                        images = nextRound;
+                        nextRound = [];
+                        this.src = images[index].src;
+                        document.querySelector("#rightImage").src = images[index + 1].src;
+                        $("#gangNum").text(round + " 강");
+                        $("#count").text(cnt + " / " + (round / 2));
+                    }
+                }
+            });
+
+            rightElement = $(`<img id="rightImage" src="${images[index + 1].src}"/>`).click(function () {
+                nextRound.push(images[index + 1]);
+                if ((round / 2) == 1) {
+                    gang.remove();
+                    count.remove();
+                    leftElement.remove();
+                    rightElement.remove();
+                    vs.remove();
+                    var link = "Done.html" + "?" + "subject=" + subject + "&" + "winnerID=" + nextRound[0].src;
+                    $('#winnerImg').append(`<a href = "${link}"> <img id="winner" src="${nextRound[0].src}"/>`);
+                }
+                else {
+                    cnt++;
+                    if (cnt <= (round / 2)) {
+                        index += 2;
+                        $("#gangNum").text(round + " 강");
+                        $("#count").text(cnt + " / " + (round / 2));
+
+                        this.src = images[index + 1].src;
+                        document.querySelector("#leftImage").src = images[index].src;
+                    }
+                    else {
+                        round = round / 2;
+                        cnt = 1;
+                        index = 0;
+                        images = nextRound;
+                        nextRound = [];
+                        this.src = images[index + 1].src;
+                        document.querySelector("#leftImage").src = images[index].src;
+                        $("#gangNum").text(round + " 강");
+                        $("#count").text(cnt + " / " + (round / 2));
+                    }
+                }
+            });
+
+            left.append(leftElement);
+            right.append(rightElement);
+        });
+
+
+        function changeImage(index) {
+            const left = document.querySelector('#leftImage');
+            const right = document.querySelector('#rightImage');
+
+            left.src = images[index].src;
+            right.src = images[index + 1].src;
+        }
+
+        function onImageClick($event) {
+            nextRound.push($event.src);
+            console.log($event.src);
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <button type="button" onClick="history.back();">
+            초기화면
+        </button>
+    </div>
+
+    <div id="gangNum">
+    </div>
+
+    <div id="count">
+    </div>
+
+    <div class="Grand">
+        <div class="Parent">
+            <div class="WorldCup" id="left">
+            </div>
+            <div id="VS">
+                VS
+            </div>
+            <div class="WorldCup" id="right">
+            </div>
+        </div>
+        <div id="winnerImg">
+        </div>
+    </div>
+</body>
+
+</html>

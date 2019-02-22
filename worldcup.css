@@ -1,0 +1,26 @@
+.Grand{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height : calc(100vh - 100px);
+
+}
+.Parent{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    }
+img{
+    width : 400px;
+    height: 300px;
+}
+.WorldCup{
+    padding: 20px;
+}
+#VS{
+    font-size: 40pt;
+}
+#gang{
+    width: 50px;
+    height: 50px;;
+}

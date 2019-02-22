@@ -1,0 +1,16 @@
+.Parent{
+    display:flex;
+    justify-content: center;
+    align-content: center
+}
+.WebTitle{
+    font-size: 36pt;
+    padding: 10px;
+}
+img{
+    width : 400px;
+    height: 300px;
+}
+.WorldCup{
+    padding: 20px;
+}
