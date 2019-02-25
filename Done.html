@@ -7,17 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="done.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Document</title>
+    <title>Winner</title>
     <script>
         var url_string = document.URL;
         var url = new URL(url_string);
         var imgLink = url.searchParams.get("winnerID");
         var subject = url.searchParams.get("subject");
+        localStorage.setItem('dog', '강아지');
+        localStorage.setItem('cat', '고양이');
+        // function inputname() {
+        //     if (subject='dog'){
+        //         $('#namesel').prepend('강아지');
+        //     };
+        //     else if (subject='cat'){
+        //         $('#namesel').prepend('고양이');
+        //     };
+        // }
         const jsonLocation = 'data/' + subject + '.json';
         var httpRequest = new XMLHttpRequest();
 
         $.getJSON(jsonLocation, function (data) {
-            httpRequest.open("GET", "/changeJson?"+ "subject=" +subject + "&" + "winnerID=" + imgLink, true);
+            httpRequest.open("GET", "/changeJson?" + "subject=" + subject + "&" + "winnerID=" + imgLink, true);
             httpRequest.send();
             $('#winnerImg').append(`<img id ="win" src="${imgLink}"/>`);
             data.sort(function (a, b) {
@@ -31,34 +41,43 @@
 </head>
 
 <body>
-    <div class="title">
-        우승자!!!
-    </div>
-    <div class="content">
-        <div id="winnerImg">
+    <div id="container"> <!-- 전체 div -->
+        <div class="content"> <!-- 타이틀, 이미지 div -->
+            <div class="title"> <!-- 타이틀 div -->
+                우승자
+            </div>
+            <div id="winnerImg"> <!-- 이미지 div -->
+            </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>순위</th>
-                    <th>강아지</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1위</td>
-                    <td class="mvp" id="one"></td>
-                </tr>
-                <tr>
-                    <td> 2위</td>
-                    <td class="mvp" id="two"></td>
-                </tr>
-                <tr>
-                    <td>3위</td>
-                    <td class="mvp" id="three"></td>
-                </tr>
-            </tbody>
-        </table>
+        
+       
+        <div> <!-- 테이블 div -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th id="namesel"></th>
+                        <script>
+                            document.getElementById("namesel").innerHTML = localStorage.getItem(subject);
+                        </script>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1위</td>
+                        <td class="mvp" id="one"></td>
+                    </tr>
+                    <tr>
+                        <td> 2위</td>
+                        <td class="mvp" id="two"></td>
+                    </tr>
+                    <tr>
+                        <td>3위</td>
+                        <td class="mvp" id="three"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 

@@ -1,16 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans&subset=korean');
+
+#container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 40%;
+    height: auto;
+}
+
 .title{
     font-size: 50pt;
+    font-family: 'Black Han Sans', sans-serif;
+    letter-spacing: 5pt;
+    text-align: center;
 }
+
 #winnerImg{
-    width : 500px;
-    height: 600px;
+    align-self: center;
+    width : auto; 
+    /* 반응형 웹(그리드 활용), 미디어 쿼리 적용 */
+    height: auto;   
+    background-color: black;
+    /* background-position: center;
+    background-repeat: repeat-y; */
 }
+
+#win{
+    width: inherit;
+    /* max-height: inherit; */
+    height: auto;
+    /* height: 80%; */
+    padding: 0px;
+}
+
 table{
-    width : 600px;
+    margin-left: 100px; /* 퍼센티지 or 미디어쿼리로 고치기 */
+    width : 40%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
 }
-th, td {
+
+th, td{
     border-bottom: 1px solid #444444;
     padding: 10px;
     text-align: center;
